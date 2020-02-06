@@ -1,0 +1,15 @@
+library(rgdal)
+
+readOGR(dsn="Data/Stowe/Roads/roads.shp", layer="roads")
+
+library(raster)
+elevation <- raster(readGDAL("Data/Stowe/Elevation/elevation1.tif"))
+
+library(tmap)
+tm_shape(roads)+tm_lines()
+library(tmap)
+tm_shape(roads, title="Map of roads in Stowe")+
+  tm_lines(col="Shape_Leng", style="jenks")+ # Use jenks classification
+  tm_scale_bar()+
+  tm_compass()
+
